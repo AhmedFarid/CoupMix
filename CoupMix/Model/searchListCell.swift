@@ -7,18 +7,36 @@
 //
 
 import UIKit
+import Kingfisher
 
 class searchListCell: UITableViewCell {
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
+    
+    
+    @IBOutlet weak var broImage: UIImageView!
+    @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var offer_percentage: UILabel!
+    @IBOutlet weak var location: UILabel!
+    
+    func configuerCell(prodect: featureOffers) {
+        
+        location.text = prodect.location
+        title.text = prodect.title
+        offer_percentage.text = "\(prodect.offer_percentage)%"
+        broImage.image = UIImage(named: "placeholder")
+        let s = ("http://coupomix.com/\(prodect.image)")
+        let encodedLink = s.addingPercentEncoding(withAllowedCharacters: .urlFragmentAllowed)
+        let encodedURL = NSURL(string: encodedLink!)! as URL
+        
+        broImage.kf.indicatorType = .activity
+        if let url = URL(string: "\(encodedURL)") {
+            print("g\(url)")
+            broImage.kf.setImage(with: url)
+        }
     }
-
+    
 }

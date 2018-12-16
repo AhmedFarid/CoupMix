@@ -10,21 +10,35 @@ import UIKit
 
 class OrderBookVC: UIViewController {
 
+    @IBOutlet weak var FNTF: UITextField!
+    @IBOutlet weak var adTF: UITextField!
+    @IBOutlet weak var phoneTF: UITextField!
+    @IBOutlet weak var emailTF: UITextField!
+    @IBOutlet weak var notsTF: UITextField!
+    
+    var orderI = [orderId]()
+    var orders: orderId?
+    var id = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+
+    @IBAction func orderBTN(_ sender: Any) {
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        API_ORDAER.orderBook(c_name: FNTF.text ?? "", c_email: emailTF.text ?? "", c_address: adTF.text ?? "", c_phone: phoneTF.text ?? "", c_note: notsTF.text ?? "") { (error: Error?, orderI: [orderId]?)in
+            if let orderI = orderI {
+                self.orderI = orderI
+                print("xxx\(self.orderI)")
+                for order in orderI {
+                    print("\(order.id)")
+                    self.id = order.id
+                    
+                }
+                self.showAlert(title: "order success", message: "thanks for order \n Your order Id is: \(self.id)")
+            }
+            
+            
+        }
     }
-    */
-
 }
